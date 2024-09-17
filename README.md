@@ -36,3 +36,20 @@ Une progression régulière est attendue et sera vérifiée par les apports succ
 - Seules des résolutions temporelles explicites seront utilisées (Euler et Runge-Kutta 22).
 - Comme pour tout problème numérique, des choix assez radicalement différents sont possibles dans l’approche de programmation. Il est recommandé de débuter avec des approches simples et pragmatiques. Cependant, une réflexion sur des optimisations pertinentes est à prévoir et, dans la mesure du temps disponible, à implémenter pour en objectiver l’efficacité.
 - La vitesse totale d’exécution sur un cas « non documenté » pourra servir lors de la correction.
+
+# Convention à adopter
+
+- le domaine de calcul est défini par une matrice d'entiers où 0 est une maille à ne pas calculer et 1 est à calculer
+- la numérotation des éléments est matriciel --> [i,j] == [ligne i, colonne j]
+- la taille du domaine est paramétré par nr == number of rows et nc == number of columns
+- la taille de maille (résolution spatiale) selon X et Y doit être paramétrable et s'appelle dx et dy
+- l'origine des axes est située **au coin inférieur gauche** de la matrice de domaine
+- le champ de vitesse est défini par deux matrices de flottants u, selon X, et v, selon Y
+    - étant donné que les vitesses normales seront à calculer **aux bords** des mailles, la valeur stockée en [i,j] correspondra :
+        - selon X, au bord gauche de la maille  [i,j]
+        - selon Y, au bord du haut de la maille [i,j]
+    - les dimensions des matrices de vitesse seront dès lors [nr+1, nc+1]
+- les conditions aux limites faibles doivent être énumérées dans une/plusieurs listes Python sous forme de tuples :
+    - (i, j, type, valeur)
+    - même convention que les vitesses
+    - type : 'u', 'v', 'c'
